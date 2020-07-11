@@ -47,4 +47,18 @@ class UsersRepository extends ServiceEntityRepository
         ;
     }
     */
+     //Is user name already exists?
+     public function findUserName($userName)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT u
+            FROM App\Entity\Users u
+            WHERE u.userName = :userName '
+        )->setParameter('userName', $userName);
+
+        // returns an array of Users objects
+        return $query->getResult();
+    }
 }
