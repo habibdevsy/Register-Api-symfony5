@@ -40,7 +40,13 @@ class UsersController extends AbstractController
         
          //Array errors
          $errors = [];
-
+         //Is user name already exists?
+         
+         if ($this->getDoctrine()->getRepository(Users ::class)->findUserName($userName)) {
+            
+            $errors='Unable to create user name,'.' '.$userName .' '. 'already exists!';
+         
+        }
          //Check if password does not match the confirmation
          if($password != $passwordConfirm)
          {
