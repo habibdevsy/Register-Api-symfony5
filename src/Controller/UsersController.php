@@ -101,4 +101,48 @@ class UsersController extends AbstractController
                 'errors' => $errors
             ], 400);
     }
+    
+    
+     /**
+      * @Route("/login",name="login",methods={"POST"})
+      */
+    public function login( Request $request){
+        
+   
+       
+        $entityManager  = $this->getDoctrine()->getManager();
+
+        $userName        = $request->request->get("username");
+        $email           = $request->request->get("email");
+        $password        = $request->request->get("password");
+        
+        //Is User Name Found
+        $IsUserNameFound =$this->getDoctrine()->getRepository(Users ::class)->loadUserByUsername($userName);
+        $passwordInDB="";
+        
+        $errors = [];
+         //Check if user name not found
+         if(!$IsUserNameFound){
+            $errors[] = "the"." ".$userName." "."not found!!";
+         }
+         //Password matching the username in the database
+         if($IsUserNameFound){
+            $passwordInDB = $IsUserNameFound->getPassword();
+         }
+         //Check if password not found
+         if($password != $passwordInDB && $passwordInDB!="")
+         {
+             $errors[] = "Password Wronge!!";
+         }
+
+         //It's ok
+         if(!$errors)
+         {
+            return new Response('Welcome user '. $IsUserNameFound->getUserName());
+         }
+
+         return $this->json([
+            'errors' => $errors
+        ], 400);
+    }
 }
