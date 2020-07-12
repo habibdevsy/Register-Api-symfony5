@@ -47,27 +47,30 @@ class UsersRepository extends ServiceEntityRepository
         ;
     }
     */
-     //Is user name already exists?
-     public function findUserName($userName)
-    {
-        $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery(
-            'SELECT u
-            FROM App\Entity\Users u
-            WHERE u.userName = :userName '
-        )->setParameter('userName', $userName);
+    //Is user name already exists?
+    // public function findUserName($userName)
+    // {
+    //     $entityManager = $this->getEntityManager();
 
-        // returns an array of Users objects
-        return $query->getResult();
-    }
-     public function loadUserByUsername($username)
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.userName = :userName OR u.email = :email')
-            ->setParameter('userName', $username)
-            ->setParameter('email', $username)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
+    //     $query = $entityManager->createQuery(
+    //         'SELECT u
+    //         FROM App\Entity\Users u
+    //         WHERE u.userName = :userName '
+    //     )->setParameter('userName', $userName);
+
+    //     // returns an array of Users objects
+    //     return $query->getResult();
+    // }
+
+    // public function loadUserByUsername($username)
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->where('u.userName = :userName OR u.email = :email')
+    //         ->setParameter('userName', $username)
+    //         ->setParameter('email', $username)
+    //         ->getQuery()
+    //         ->getOneOrNullResult();
+    // }
+    
 }
