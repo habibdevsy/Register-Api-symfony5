@@ -35,7 +35,7 @@ class UsersController extends AbstractController
     {
         $entityManager  = $this->getDoctrine()->getManager();
         $user = new Users();
-        $username               = $request->request->get("email");
+       
         $email                  = $request->request->get("email");
         $password               = $request->request->get("password");
         $passwordConfirmation   = $request->request->get("password_confirmation");
@@ -56,7 +56,7 @@ class UsersController extends AbstractController
             $encodedPassword = $passwordEncoder->encodePassword(
                 $user,
                 $password);
-            $user->setUserName($username);
+            
             $user->setEmail($email);
             $user->setPassword($encodedPassword);
 
